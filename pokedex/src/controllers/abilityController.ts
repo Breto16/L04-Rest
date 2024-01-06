@@ -7,7 +7,11 @@ export const getAllAbilities = async (req: Request, res: Response): Promise<void
     const abilities: IAbility[] = await Ability.find();
     res.json(abilities);
   } catch (error) {
-    res.status(500).send(error.message);
+    if (error instanceof Error) {
+      res.status(500).send(error.message);
+    } else {
+      res.status(500).send('Error Desconocido');
+    }
   }
 };
 
@@ -15,6 +19,10 @@ export const createAbility = async (req: Request, res: Response): Promise<void> 
   try {
     // Tu lógica para crear una habilidad aquí
   } catch (error) {
-    res.status(500).send(error.message);
+    if (error instanceof Error) {
+      res.status(500).send(error.message);
+    } else {
+      res.status(500).send('Error Desconocido');
+    }
   }
 };

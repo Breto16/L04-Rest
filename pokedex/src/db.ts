@@ -1,13 +1,9 @@
 // src/db.ts
 import mongoose from 'mongoose';
 
-const MONGODB_URI = 'mongodb://localhost:27017/pokedex';
+const MONGODB_URI = 'mongodb+srv://mongoAdmin:admin1008@cluster0.rgrqpo4.mongodb.net/Pokedex'; // Reemplaza 'your-database-name' con el nombre real de tu base de datos
 
-mongoose.connect(MONGODB_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-  useCreateIndex: true,
-});
+mongoose.connect(MONGODB_URI);
 
 const db = mongoose.connection;
 

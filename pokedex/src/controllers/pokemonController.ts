@@ -8,7 +8,11 @@ export const getAllPokemon = async (req: Request, res: Response): Promise<void> 
     const pokemon: IPokemon[] = await Pokemon.find();
     res.json(pokemon);
   } catch (error) {
-    res.status(500).send(error.message);
+    if (error instanceof Error) {
+      res.status(500).send(error.message);
+    } else {
+      res.status(500).send('Error Desconocido');
+    }
   }
 };
 
@@ -18,7 +22,11 @@ export const getPokemonById = async (req: Request, res: Response): Promise<void>
     const pokemon: IPokemon | null = await Pokemon.findOne({ pokedexNumber });
     res.json(pokemon);
   } catch (error) {
-    res.status(500).send(error.message);
+    if (error instanceof Error) {
+      res.status(500).send(error.message);
+    } else {
+      res.status(500).send('Error Desconocido');
+    }
   }
 };
 
@@ -36,7 +44,11 @@ export const createPokemon = async (req: Request, res: Response): Promise<void> 
     await pokemon.save();
     res.json(pokemon);
   } catch (error) {
-    res.status(500).send(error.message);
+    if (error instanceof Error) {
+      res.status(500).send(error.message);
+    } else {
+      res.status(500).send('Error Desconocido');
+    }
   }
 };
 
@@ -58,7 +70,11 @@ export const updatePokemon = async (req: Request, res: Response): Promise<void> 
     );
     res.json(updatedPokemon);
   } catch (error) {
-    res.status(500).send(error.message);
+    if (error instanceof Error) {
+      res.status(500).send(error.message);
+    } else {
+      res.status(500).send('Error Desconocido');
+    }
   }
 };
 
@@ -68,6 +84,10 @@ export const deletePokemon = async (req: Request, res: Response): Promise<void> 
     await Pokemon.findOneAndDelete({ pokedexNumber });
     res.json({ message: 'Pokemon Borrado!' });
   } catch (error) {
-    res.status(500).send(error.message);
+    if (error instanceof Error) {
+      res.status(500).send(error.message);
+    } else {
+      res.status(500).send('Error Desconocido');
+    }
   }
 };
