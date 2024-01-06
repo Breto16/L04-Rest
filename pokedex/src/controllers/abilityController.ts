@@ -17,12 +17,28 @@ export const getAllAbilities = async (req: Request, res: Response): Promise<void
 
 export const createAbility = async (req: Request, res: Response): Promise<void> => {
   try {
-    // Tu lógica para crear una habilidad aquí
+    const { name, description } = req.body;
+
+    if (!name || !description) {
+      res.status(400).json({ message: 'Name and description are required for creating an ability' });
+      return;
+    }
+
+    const existingAbility = await Ability.findOne({ name });
+    if (existingAbility) {
+      res.status(409).json({ message: 'An ability with the same name already exists' });
+      return;
+    }
+
+    const newAbility: IAbility = new Ability({ name, description });
+    await newAbility.save();
+
+    res.json(newAbility);
   } catch (error) {
     if (error instanceof Error) {
       res.status(500).send(error.message);
     } else {
-      res.status(500).send('Error Desconocido');
+      res.status(500).send('An unknown error occurred');
     }
   }
 };
